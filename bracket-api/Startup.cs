@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using bracket_api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace bracket_api
 {
@@ -27,6 +29,10 @@ namespace bracket_api
         {
 
             services.AddControllers();
+            services.AddDbContext<BracketContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
